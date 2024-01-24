@@ -20,9 +20,9 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home,name = 'homepage'),
+    path('category/<slug:category_slug>/', views.home,name = 'CatWP'),
     path('author/', include('authors.urls')),
     path('category/', include('categories.urls')),
-    path('profile/', include('profiles.urls')),
     path('post/', include('posts.urls')),
 
 ]

@@ -1,25 +1,56 @@
 {%extends 'base.html'%}
-
+{% load static %}
 {%block content%}
-<div class="d-flex flrx-wrap justify-content-center px-5 pt-5">
-    {%for post in data%}
-    <div class="col-sm-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{post.title}}</h5>
-            <p class="card-text">{{post.content}}</p>
-            <p>Author : {{post.author.name}}</p>
-            <p> Category : 
-                {%for cat in post.category.all %}
-                <button class ="btn btn-primary btn-sm m-2" disabled>{{cat.name}}</button>
-                {%endfor%}
-            </p>
-            <a href="{% url 'edit_post' post.id %}" class = "btn btn-warning">Edit</a>
-            <a href="{% url 'delete_post' post.id %}" class = "btn btn-danger">Delete</a>
-          </div>
-        </div>
-      </div>
 
+<div class= "d-flex flex-wrap px-5 pt-3 align-items-center">
+  <div class ="col-6">
+    <h1>Welcome to Test Blog</h1>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit dolore provident maiores placeat. Culpa et explicabo minus magni eligendi, pariatur autem soluta reprehenderit porro blanditiis, dolorem delectus enim nobis, odit ut necessitatibus laboriosam vitae nemo voluptatibus doloremque nisi. Temporibus consequuntur consequatur officiis architecto porro. Corrupti soluta repellendus similique, facere cumque tempore ad provident nam aliquid accusantium, maxime dolorum eum necessitatibus fugiat? Nemo odit architecto quaerat, explicabo amet tenetur magnam quos ut cum sapiente repudiandae deleniti blanditiis soluta hic nesciunt earum dolores dolor facilis sunt aperiam sequi error fugiat? Pariatur cum ut impedit sit voluptates in aperiam harum itaque quia veritatis?</p>
+  </div>
+  <div class ="col-6">
+    <img class ="rounded img-fluid" src="{% static 'blog.jpg' %}" alt="">
+  </div>
+
+</div>
+
+
+
+
+<div class="d-flex flex-wrap p-4">
+  <div class = "col-2 bg-white p-2">
+    <h5>All Categories</h5>
+    {%for c in category%}
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="category" id="{{c.id}}">
+      <label class="form-check-label" for="{{c.id}}">
+        <a href="{%url 'CatWP' c.slug%}" class="text-decoration-none text-dark">{{c.name}}</a>
+      </label>
+    </div>
     {% endfor %}
   </div>
+
+  <div class = "col-10 p-3">
+    <h4>{{data | length}} results found </h4>
+    <div class="d-flex flex-wrap pt-5">
+      {%for post in data%}
+      <div class="col-sm-3">
+          <div class="card m-2">
+            <div class="card-body">
+              <h5 class="card-title">{{post.title}}</h5>
+              <p class="card-text">{{post.content}}</p>
+              <p>Author : {{post.author.first_name}}</p>
+              <p> Category : 
+                  {%for cat in post.category.all %}
+                  <button class ="btn btn-primary btn-sm m-2" disabled>{{cat.name}}</button>
+                  {%endfor%}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
 {%endblock%}
